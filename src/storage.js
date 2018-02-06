@@ -239,12 +239,14 @@ function getApplicableSections(style, url) {
 }
 
 function sectionAppliesToUrl(section, url) {
-	// only http, https, file, and chrome-extension allowed
-	if (url.indexOf("http") != 0 && url.indexOf("file") != 0 && url.indexOf("chrome-extension") != 0 && url.indexOf("ftp") != 0) {
+	// only http, https, file, and C-E allowed	
+    // if (url.indexOf("http") != 0 && url.indexOf("file") != 0 && url.indexOf("C-E") != 0 && url.indexOf("ftp") != 0) {
+    if (url.indexOf("http") != 0 && url.indexOf("file") != 0 && url.indexOf(getExtensionProtocol()) != 0 && url.indexOf("ftp") != 0) {
 		return false;
 	}
 	// other extensions can't be styled
-	if (url.indexOf("chrome-extension") == 0 && url.indexOf(chrome.extension.getURL("")) != 0) {
+	// if (url.indexOf("C-E") == 0 && url.indexOf(chrome.extension.getURL("")) != 0) {
+    if (url.indexOf(getExtensionProtocol()) == 0 && url.indexOf(chrome.extension.getURL("")) != 0) {
 		return false;
 	}
 	if (section.urls.length == 0 && section.domains.length == 0 && section.urlPrefixes.length == 0 && section.regexps.length == 0) {
